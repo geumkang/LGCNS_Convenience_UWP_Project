@@ -13,6 +13,7 @@ namespace ConvenienceStore
         private int count;
         private int totalCost;
         private float weight;
+        private int discount;
 
         public Product(string name, int cost, int count, float weight)
         {
@@ -21,11 +22,12 @@ namespace ConvenienceStore
             this.count = count;
             this.totalCost = cost * count;
             this.weight = weight;
+            this.discount = 0;
         }
-        
+
         public ProductBind bindData()
         {
-            ProductBind data = new ProductBind() { name = this.name, cost = this.cost, count = this.count, totalCost = this.totalCost };
+            ProductBind data = new ProductBind() { name = this.name, cost = this.cost, count = this.count, totalCost = this.totalCost, discount = this.discount };
             return data;
         }
 
@@ -49,6 +51,11 @@ namespace ConvenienceStore
             return cost;
         }
 
+        public int getDiscount()
+        {
+            return discount;
+        }
+
         public void setCount(int count)
         {
             this.count = count;
@@ -58,6 +65,11 @@ namespace ConvenienceStore
         {
             this.totalCost = totalCost;
         }
+
+        public void setDiscount(int discount)
+        {
+            this.discount = discount;
+        }
     }
 
     class ProductBind
@@ -66,6 +78,7 @@ namespace ConvenienceStore
         public int cost { get; set; }
         public int count { get; set; }
         public int totalCost { get; set; }
+        public int discount { get; set; }
     }
 
     class TotalInfo

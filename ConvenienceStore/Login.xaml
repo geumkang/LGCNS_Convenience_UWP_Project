@@ -55,7 +55,7 @@
                 </Grid>
             </Grid>
             <Grid Grid.Column="1">
-                <Button x:Name="loginBtn" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30,10,30,10" Content="Login" FontSize="30" Click="loginBtn_Click"></Button>
+                <Button x:Name="loginBtn" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30,22,30,22" Content="Login" FontSize="30" Click="loginBtn_Click"></Button>
             </Grid>
         </Grid>
     </Grid>

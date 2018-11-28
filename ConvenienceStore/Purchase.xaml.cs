@@ -16,14 +16,17 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
+
+
 namespace ConvenienceStore
 {
     public sealed partial class Purchase : Page
     {
+        double DiscountRate = 0.9;
         List<Product> products;
         List<ProductBind> productBinds;
-
         TotalInfo totalInfo;
+        Boolean isDiscounted;
         
         public Purchase()
         {
@@ -32,11 +35,10 @@ namespace ConvenienceStore
 
             products = new List<Product>();
             productBinds = new List<ProductBind>();
-            //PurchaseProductList.ItemsSource = productBinds;
-
             totalInfo = new TotalInfo() { totalCost = 0, weight = 0f };
-            //totalCostTxtBlock.DataContext = totalInfo;
-            //weightTxtBlock.DataContext = totalInfo;
+
+            isDiscounted = false;
+
 
             //string connStr = "server=localhost;user=root;database=mycontacts;port=3306;password=123";
             //StringBuilder sb = new StringBuilder();
@@ -76,7 +78,24 @@ namespace ConvenienceStore
             var result = await dialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
+                // 멤버십 여부 확인
 
+                
+                for(int i = 0; i < products.Count; i++)
+                {
+                    products[i].setTotalCost((int)(products[i].getTotalCost() * DiscountRate));
+                    productBinds[i].totalCost = products[i].getTotalCost();
+
+                    products[i].setDiscount(products[i].getCost() * products[i].getCount() - products[i].getTotalCost());
+                    productBinds[i].discount = products[i].getDiscount();
+                }
+
+                totalInfo.totalCost = (int)(totalInfo.totalCost * DiscountRate);
+
+                resetBindData();
+
+                isDiscounted = true;
+                discountBtn.IsEnabled = false;
             }
             
             this.IsEnabled = true;
@@ -103,24 +122,35 @@ namespace ConvenienceStore
                         break;
                     }
                 }
-                    
-                        
 
+                double discount = 1.0;
+                if (isDiscounted)
+                    discount = DiscountRate;
+                
                 // 같은 이름 상품이 이미 등록됬을 때
                 if(isExist)
                 {
+                    int cost = products[i].getCost();
+
                     products[i].setCount(products[i].getCount() + 1);
-                    products[i].setTotalCost(products[i].getCount() * products[i].getCost());
+                    products[i].setTotalCost(products[i].getCount() * (int)(cost * discount));
+                    //products[i].setDiscount(products[i].getCount() * (int)(cost * (1 - discount)));
+                    products[i].setDiscount(products[i].getCost() * products[i].getCount() - products[i].getTotalCost());
+                    
                     productBinds[i].count = products[i].getCount();
                     productBinds[i].totalCost = products[i].getTotalCost();
+                    productBinds[i].discount = products[i].getDiscount();
 
-                    totalInfo.totalCost += products[i].getCost();
+                    totalInfo.totalCost += (int)(cost * discount);
                     totalInfo.weight += products[i].getWeight();
                 }
                 // 없을 때
                 else
                 {
                     Product p = new Product(addProductTxtBox.Text, 1000, 2, 5.5f);
+                    p.setTotalCost((int)(p.getTotalCost() * discount));
+                    p.setDiscount(p.getCost() * p.getCount() - p.getTotalCost());
+
                     products.Add(p);
                     productBinds.Add(p.bindData());
 
@@ -169,6 +199,12 @@ namespace ConvenienceStore
             weightTxtBlock.DataContext = null;
             totalCostTxtBlock.DataContext = totalInfo;
             weightTxtBlock.DataContext = totalInfo;
+        }
+
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Frame parentFrame = Window.Current.Content as Frame;
+            parentFrame.Navigate(typeof(SelectJob));
         }
     }
 }
