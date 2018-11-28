@@ -1,0 +1,23 @@
+﻿<Page
+    x:Class="ConvenienceStore.InsertCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ConvenienceStore"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="0.3*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Image Source="Card.png" ></Image>
+        </Grid>
+        <Grid Grid.Row="1">
+            <TextBlock Text="카드를 삽입해주세요." HorizontalAlignment="Center" FontSize="50"></TextBlock>
+        </Grid>
+    </Grid>
+</Page>
