@@ -4,8 +4,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
-
-
 namespace ConvenienceStore
 {
     public sealed partial class Purchase : Page
@@ -15,7 +13,7 @@ namespace ConvenienceStore
         List<ProductBind> productBinds;
         TotalInfo totalInfo;
         Boolean isDiscounted;
-        
+
         public Purchase()
         {
 
@@ -40,7 +38,7 @@ namespace ConvenienceStore
             //{
             //    sb.AppendLine(rdr[1].ToString());
             //}
-            
+
             //conn.Close();
         }
 
@@ -54,27 +52,8 @@ namespace ConvenienceStore
             {
                 // 멤버십 여부 확인
 
-                
-                for(int i = 0; i < products.Count; i++)
-                {
-                    products[i].setTotalCost((int)(products[i].getTotalCost() * DiscountRate));
-                    productBinds[i].totalCost = products[i].getTotalCost();
 
-                    products[i].setDiscount(products[i].getCost() * products[i].getCount() - products[i].getTotalCost());
-                    productBinds[i].discount = products[i].getDiscount();
-                }
-
-                totalInfo.totalCost = (int)(totalInfo.totalCost * DiscountRate);
-                resetBindData();
-
-            var dialog = new AddDiscount { Text = "" };
-            var result = await dialog.ShowAsync();
-            if (result == ContentDialogResult.Primary)
-            {
-                // 멤버십 여부 확인
-
-                
-                for(int i = 0; i < products.Count; i++)
+                for (int i = 0; i < products.Count; i++)
                 {
                     products[i].setTotalCost((int)(products[i].getTotalCost() * DiscountRate));
                     productBinds[i].totalCost = products[i].getTotalCost();
@@ -90,7 +69,7 @@ namespace ConvenienceStore
                 isDiscounted = true;
                 discountBtn.IsEnabled = false;
             }
-            
+
             this.IsEnabled = true;
         }
 
@@ -102,7 +81,7 @@ namespace ConvenienceStore
 
         private void addProductTxtBox_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if(e.Key == Windows.System.VirtualKey.Enter)
+            if (e.Key == Windows.System.VirtualKey.Enter)
             {
                 // 서버한테 정보 받아오기
                 int i;
@@ -119,9 +98,9 @@ namespace ConvenienceStore
                 double discount = 1.0;
                 if (isDiscounted)
                     discount = DiscountRate;
-                
+
                 // 같은 이름 상품이 이미 등록됬을 때
-                if(isExist)
+                if (isExist)
                 {
                     int cost = products[i].getCost();
 
@@ -129,7 +108,7 @@ namespace ConvenienceStore
                     products[i].setTotalCost(products[i].getCount() * (int)(cost * discount));
                     //products[i].setDiscount(products[i].getCount() * (int)(cost * (1 - discount)));
                     products[i].setDiscount(products[i].getCost() * products[i].getCount() - products[i].getTotalCost());
-                    
+
                     productBinds[i].count = products[i].getCount();
                     productBinds[i].totalCost = products[i].getTotalCost();
                     productBinds[i].discount = products[i].getDiscount();
@@ -150,12 +129,12 @@ namespace ConvenienceStore
                     totalInfo.totalCost += p.getTotalCost();
                     totalInfo.weight += p.getCount() * p.getWeight();
                 }
-                
+
                 resetBindData();
 
                 addProductTxtBox.Text = "";
 
-                
+
             }
         }
 
@@ -163,7 +142,7 @@ namespace ConvenienceStore
         {
             ProductBind temp = (ProductBind)(sender as FrameworkElement).DataContext;
             removeProductBind(temp.name);
-            
+
             this.PurchaseProductList.SelectedItem = (sender as FrameworkElement).DataContext;
 
         }
