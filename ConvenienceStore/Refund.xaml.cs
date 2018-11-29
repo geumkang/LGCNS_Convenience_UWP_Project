@@ -1,20 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+
+// 빈 페이지 항목 템플릿에 대한 설명은 https://go.microsoft.com/fwlink/?LinkId=234238에 나와 있습니다.
 
 namespace ConvenienceStore
 {
-    public sealed partial class Purchase : Page
+    /// <summary>
+    /// 자체적으로 사용하거나 프레임 내에서 탐색할 수 있는 빈 페이지입니다.
+    /// </summary>
+    public sealed partial class Refund : Page
     {
         double DiscountRate = 0.9;
         List<Product> products;
         List<ProductBind> productBinds;
         TotalInfo totalInfo;
         Boolean isDiscounted;
-        
-        public Purchase()
+
+        public Refund()
         {
 
             this.InitializeComponent();
@@ -38,7 +52,7 @@ namespace ConvenienceStore
             //{
             //    sb.AppendLine(rdr[1].ToString());
             //}
-            
+
             //conn.Close();
         }
 
@@ -52,8 +66,8 @@ namespace ConvenienceStore
             {
                 // 멤버십 여부 확인
 
-                
-                for(int i = 0; i < products.Count; i++)
+
+                for (int i = 0; i < products.Count; i++)
                 {
                     products[i].setTotalCost((int)(products[i].getTotalCost() * DiscountRate));
                     productBinds[i].totalCost = products[i].getTotalCost();
@@ -69,19 +83,19 @@ namespace ConvenienceStore
                 isDiscounted = true;
                 discountBtn.IsEnabled = false;
             }
-            
+
             this.IsEnabled = true;
         }
 
         private void payBtn_Click(object sender, RoutedEventArgs e)
         {
             Frame parentFrame = Window.Current.Content as Frame;
-            parentFrame.Navigate(typeof(CardInsert), productBinds);
+            parentFrame.Navigate(typeof(Purchase));
         }
 
         private void addProductTxtBox_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if(e.Key == Windows.System.VirtualKey.Enter)
+            if (e.Key == Windows.System.VirtualKey.Enter)
             {
                 // 서버한테 정보 받아오기
                 int i;
@@ -98,9 +112,9 @@ namespace ConvenienceStore
                 double discount = 1.0;
                 if (isDiscounted)
                     discount = DiscountRate;
-                
+
                 // 같은 이름 상품이 이미 등록됬을 때
-                if(isExist)
+                if (isExist)
                 {
                     int cost = products[i].getCost();
 
@@ -108,7 +122,7 @@ namespace ConvenienceStore
                     products[i].setTotalCost(products[i].getCount() * (int)(cost * discount));
                     //products[i].setDiscount(products[i].getCount() * (int)(cost * (1 - discount)));
                     products[i].setDiscount(products[i].getCost() * products[i].getCount() - products[i].getTotalCost());
-                    
+
                     productBinds[i].count = products[i].getCount();
                     productBinds[i].totalCost = products[i].getTotalCost();
                     productBinds[i].discount = products[i].getDiscount();
@@ -129,12 +143,12 @@ namespace ConvenienceStore
                     totalInfo.totalCost += p.getTotalCost();
                     totalInfo.weight += p.getCount() * p.getWeight();
                 }
-                
+
                 resetBindData();
 
                 addProductTxtBox.Text = "";
 
-                
+
             }
         }
 
@@ -142,7 +156,7 @@ namespace ConvenienceStore
         {
             ProductBind temp = (ProductBind)(sender as FrameworkElement).DataContext;
             removeProductBind(temp.name);
-            
+
             this.PurchaseProductList.SelectedItem = (sender as FrameworkElement).DataContext;
 
         }

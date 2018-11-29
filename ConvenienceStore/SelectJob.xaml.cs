@@ -25,6 +25,10 @@ namespace ConvenienceStore
         public SelectJob()
         {
             this.InitializeComponent();
+            time T = new time();
+            T.Date = System.DateTime.Now.ToString("yyyy년 MM월 dd일 hh시 mm분");
+
+            time.DataContext = T;
         }
 
         private void Purchase_Click(object sender, RoutedEventArgs e)
@@ -36,7 +40,13 @@ namespace ConvenienceStore
 
         private void Refund_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Frame.Navigate(typeof(Refund));
         }
     }
+
+    
+}
+class time
+{
+    public string Date { get; set; }
 }

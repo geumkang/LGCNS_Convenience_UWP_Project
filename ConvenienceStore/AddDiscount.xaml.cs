@@ -20,7 +20,7 @@ namespace ConvenienceStore
     public sealed partial class AddDiscount : ContentDialog
     {
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
-            "ID를 입력하세요", typeof(string), typeof(AddProduct), new PropertyMetadata(default(string)));
+            "ID를 입력하세요", typeof(string), typeof(AddDiscount), new PropertyMetadata(default(string)));
 
         public AddDiscount()
         {

@@ -95,14 +95,11 @@
     <Compile Include="AddDiscount.xaml.cs">
       <DependentUpon>AddDiscount.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddProduct.xaml.cs">
-      <DependentUpon>AddProduct.xaml</DependentUpon>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InsertCard.xaml.cs">
-      <DependentUpon>InsertCard.xaml</DependentUpon>
+    <Compile Include="CardInsert.xaml.cs">
+      <DependentUpon>CardInsert.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -115,6 +112,9 @@
     <Compile Include="Purchase.xaml.cs">
       <DependentUpon>Purchase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Refund.xaml.cs">
+      <DependentUpon>Refund.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SelectJob.xaml.cs">
       <DependentUpon>SelectJob.xaml</DependentUpon>
     </Compile>
@@ -123,6 +123,8 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\Card.png" />
+    <Content Include="Assets\Fonts\BMDOHYEON.ttf" />
     <None Include="ConvenienceStore_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -144,11 +146,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AddProduct.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="InsertCard.xaml">
+    <Page Include="CardInsert.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -161,6 +159,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Purchase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Refund.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
