@@ -38,22 +38,30 @@ namespace ConvenienceStore
             totalInfo = new TotalInfo() { totalCost = 0, weight = 0f };
 
             isDiscounted = false;
+        }
 
-
-            //string connStr = "server=localhost;user=root;database=mycontacts;port=3306;password=123";
-            //StringBuilder sb = new StringBuilder();
-            //MySqlConnection conn = new MySqlConnection(connStr);
-            //conn.Open();
-            //string sql = "SELECT * FROM info";
-            //MySqlCommand cmd = new MySqlCommand(sql, conn);
-            //MySqlDataReader rdr = cmd.ExecuteReader();
-
-            //while (rdr.Read())
-            //{
-            //    sb.AppendLine(rdr[1].ToString());
-            //}
-
-            //conn.Close();
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter != null)
+            {
+                productBinds = (List<ProductBind>)e.Parameter;
+                if (productBinds.Count > 0)
+                {
+                    if (productBinds[0].discount != 0)
+                    {
+                        isDiscounted = true;
+                        discountBtn.IsEnabled = false;
+                    }
+                    for (int i = 0; i < productBinds.Count; i++)
+                    {
+                        products.Add(new Product(productBinds[i].name, productBinds[i].cost, productBinds[i].count, productBinds[i].weight, productBinds[i].discount));
+                        totalInfo.totalCost += productBinds[i].totalCost;
+                        totalInfo.weight += productBinds[i].weight * productBinds[i].count;
+                    }
+                    resetBindData();
+                }
+            }
         }
 
         private async void discountBtn_Click(object sender, RoutedEventArgs e)
@@ -89,8 +97,9 @@ namespace ConvenienceStore
 
         private void payBtn_Click(object sender, RoutedEventArgs e)
         {
+            MainPage.SELECTPAGE = 2;
             Frame parentFrame = Window.Current.Content as Frame;
-            parentFrame.Navigate(typeof(Purchase));
+            parentFrame.Navigate(typeof(CardInsert), productBinds);
         }
 
         private void addProductTxtBox_KeyDown(object sender, KeyRoutedEventArgs e)

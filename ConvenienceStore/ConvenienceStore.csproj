@@ -118,6 +118,7 @@
     <Compile Include="SelectJob.xaml.cs">
       <DependentUpon>SelectJob.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SqlManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

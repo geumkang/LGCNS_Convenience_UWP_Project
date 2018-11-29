@@ -25,6 +25,16 @@ namespace ConvenienceStore
             this.discount = 0;
         }
 
+        public Product(string name, int cost, int count, float weight, int discount)
+        {
+            this.name = name;
+            this.cost = cost;
+            this.count = count;
+            this.totalCost = cost * count;
+            this.weight = weight;
+            this.discount = discount;
+        }
+
         public ProductBind bindData()
         {
 

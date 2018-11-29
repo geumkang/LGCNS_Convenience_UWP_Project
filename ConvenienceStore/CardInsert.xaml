@@ -28,7 +28,7 @@
                     <RowDefinition Height="0.3*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="1">
-                    <Image Source="/Assets/Card.png" Width="700" Height="500" Margin="0,20,0,20"></Image>
+                    <Image x:Name="Card" Source="/Assets/Card.png" Width="700" Height="500" Margin="0,30,0,30"></Image>
                 </Grid>
                 <Grid Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center">
                     <TextBlock Text="카드를 삽입해주세요" FontFamily="BM DoHyeon" FontSize="50"/>

@@ -18,6 +18,8 @@ namespace ConvenienceStore
     /// </summary>
     public sealed partial class CardInsert : Page
     {
+        List<ProductBind> bind;
+
         public CardInsert()
         {
             this.InitializeComponent();
@@ -27,14 +29,18 @@ namespace ConvenienceStore
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             Frame parentFrame = Window.Current.Content as Frame;
-            parentFrame.Navigate(typeof(Purchase));
+            if (MainPage.SELECTPAGE == 1)
+                parentFrame.Navigate(typeof(Purchase), bind);
+            else if (MainPage.SELECTPAGE == 2)
+                parentFrame.Navigate(typeof(Refund), bind);
+            else
+                Console.Write("SELECTPAGE ERROR : Back Btn : CardInsert");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {   
             base.OnNavigatedTo(e);
-            List<ProductBind> temp = (List<ProductBind>)e.Parameter;
-            Console.WriteLine(temp.Count);
+            bind = (List<ProductBind>)e.Parameter;
         }
     }
 }
