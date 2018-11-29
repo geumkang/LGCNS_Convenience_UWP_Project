@@ -4,6 +4,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
+
+
 namespace ConvenienceStore
 {
     public sealed partial class Purchase : Page
@@ -45,6 +47,25 @@ namespace ConvenienceStore
         private async void discountBtn_Click(object sender, RoutedEventArgs e)
         {
             this.IsEnabled = false;
+
+            var dialog = new AddDiscount { Text = "" };
+            var result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                // 멤버십 여부 확인
+
+                
+                for(int i = 0; i < products.Count; i++)
+                {
+                    products[i].setTotalCost((int)(products[i].getTotalCost() * DiscountRate));
+                    productBinds[i].totalCost = products[i].getTotalCost();
+
+                    products[i].setDiscount(products[i].getCost() * products[i].getCount() - products[i].getTotalCost());
+                    productBinds[i].discount = products[i].getDiscount();
+                }
+
+                totalInfo.totalCost = (int)(totalInfo.totalCost * DiscountRate);
+                resetBindData();
 
             var dialog = new AddDiscount { Text = "" };
             var result = await dialog.ShowAsync();

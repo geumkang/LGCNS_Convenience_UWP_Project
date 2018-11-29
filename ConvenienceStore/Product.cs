@@ -27,7 +27,9 @@ namespace ConvenienceStore
 
         public ProductBind bindData()
         {
+
             ProductBind data = new ProductBind() { name = this.name, cost = this.cost, count = this.count, totalCost = this.totalCost, weight = this.weight, discount = this.discount };
+
             return data;
         }
 
