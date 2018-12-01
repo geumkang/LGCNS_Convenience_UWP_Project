@@ -1,15 +1,15 @@
 ﻿<Page
-    x:Class="ConvenienceStore.CardInsert"
+    x:Class="ConvenienceStore.WeightScale"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ConvenienceStore"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    
-    
-    <Grid>
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="OnCreate"
+    >
+
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="0.07*"/>
             <RowDefinition Height="0.92*"/>
@@ -28,10 +28,10 @@
                     <RowDefinition Height="0.3*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="1" VerticalAlignment="Top">
-                    <Image x:Name="Card" Source="/Assets/Card.png" Width="700" Height="500" Margin="0,30,0,30"></Image>
+                    <Image x:Name="Card" Source="/Assets/Scale.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" Stretch="Uniform"></Image>
                 </Grid>
                 <Grid Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBlock Text="카드를 삽입해주세요" FontFamily="BM DoHyeon" FontSize="50"/>
+                    <TextBlock Text="저울 위에 상품을 올려주세요" FontFamily="BM DoHyeon" FontSize="50" Margin="0,20,0,0"/>
                 </Grid>
             </Grid>
         </Grid>

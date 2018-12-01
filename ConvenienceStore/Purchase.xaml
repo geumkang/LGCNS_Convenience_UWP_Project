@@ -17,6 +17,9 @@
                 <Button x:Name="BackBtn" FontFamily="Segoe MDL2 Assets" FontSize="30" Content="&#xE72B;" Margin="20,0,20,0" Click="BackBtn_Click" Foreground="White" Background="#FFC8135C"></Button>
                 <TextBlock FontFamily="BM DoHyeon" FontSize="30" Text="구매하기" Margin="0,7,0,0" Foreground="White" VerticalAlignment="Center"/>
             </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                <Button x:Name="HomeBtn" FontFamily="Segoe MDL2 Assets" FontSize="30" Content="&#xE80F;" Margin="20,0,20,0" Click="BackBtn_Click" Foreground="White" Background="#FFC8135C"></Button>    
+            </StackPanel>
         </Grid>
         <Grid Grid.Row="1" Background="WhiteSmoke">
             <Grid.RowDefinitions>

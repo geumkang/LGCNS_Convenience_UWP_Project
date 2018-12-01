@@ -99,7 +99,7 @@ namespace ConvenienceStore
         {
             MainPage.SELECTPAGE = 2;
             Frame parentFrame = Window.Current.Content as Frame;
-            parentFrame.Navigate(typeof(CardInsert), productBinds);
+            parentFrame.Navigate(typeof(WeightScale), productBinds);
         }
 
         private void addProductTxtBox_KeyDown(object sender, KeyRoutedEventArgs e)
