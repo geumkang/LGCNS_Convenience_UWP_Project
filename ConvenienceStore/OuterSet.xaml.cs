@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -28,13 +29,42 @@ namespace ConvenienceStore
 
         }
 
-        private void Value_KeyDown(object sender, KeyRoutedEventArgs e)
+        private void ID_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
-                SharedDataValue.weight = float.Parse(Value.Text);
-                Value.Text = "";
+                Weight.IsEnabled = true;
+                //SharedData.ID = ID.Text;
+                //ID.Text = "";
+
+                //frame.Navigate(typeof(), SharedData.ID);
             }
+
+        }
+
+        private void Exit_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+
+        }
+
+        private void Weight_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                SharedData.weight = float.Parse(Weight.Text);
+                Weight.Text = "";
+            }
+
+        }
+
+        private void Card_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+
+        }
+
+        private void Bill_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+
         }
     }
 }

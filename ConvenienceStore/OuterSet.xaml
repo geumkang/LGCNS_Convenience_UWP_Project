@@ -15,28 +15,59 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#FFC8135C" VerticalAlignment="Stretch">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Stretch">
-                <TextBlock FontFamily="BM DoHyeon" FontSize="30" Text="무게 측정" Margin="30,7,0,0" Foreground="White" VerticalAlignment="Center"/>
+                <TextBlock FontFamily="BM DoHyeon" FontSize="30" Text="입력 화면" Margin="30,7,0,0" Foreground="White" VerticalAlignment="Center"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" Background="WhiteSmoke">
             <Grid Background="white" Margin="20,20,20,20" CornerRadius="10,10,10,10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.15*"/>
-                    <RowDefinition Height="0.5*"/>
-                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.1*"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="1" VerticalAlignment="Bottom">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.3*"/>
-                        <ColumnDefinition Width="0.4*"/>
-                        <ColumnDefinition Width="0.3*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="1">
-                        <TextBox x:Name="Value" FontFamily="BM DoHyeon" FontSize="50" HorizontalAlignment="Stretch" Margin="0,0,0,50" KeyDown="Value_KeyDown"></TextBox>
-                    </Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <TextBlock Text="ID 입력" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch"/>
                 </Grid>
-                <Grid Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBlock Text="무게 측정 중입니다" FontFamily="BM DoHyeon" FontSize="50" HorizontalAlignment="Stretch"/>
+                <Grid Grid.Row="2" Grid.Column="1" VerticalAlignment="Stretch">
+                    <TextBox x:Name="ID" Text="{Binding id}" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch" Margin="0,0,0,0" KeyDown="ID_KeyDown"></TextBox>
+                </Grid>
+                <Grid Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <TextBlock Text="퇴장 관리" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch"/>
+                </Grid>
+                <Grid Grid.Row="4" Grid.Column="1" VerticalAlignment="Stretch">
+                    <TextBox x:Name="Exit" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch" Margin="0,0,0,0" KeyDown="Exit_KeyDown" IsEnabled="True"></TextBox>
+                </Grid>
+                <Grid Grid.Row="5" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <TextBlock Text="무게 측정" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch"/>
+                </Grid>
+                <Grid Grid.Row="6" Grid.Column="1" VerticalAlignment="Stretch">
+                    <TextBox x:Name="Weight" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch" Margin="0,0,0,0" KeyDown="Weight_KeyDown" IsEnabled="True"></TextBox>
+                </Grid>
+                <Grid Grid.Row="7" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <TextBlock Text="카드 번호 입력" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch"/>
+                </Grid>
+                <Grid Grid.Row="8" Grid.Column="1" VerticalAlignment="Stretch">
+                    <TextBox x:Name="Card" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch" Margin="0,0,0,0" KeyDown="Card_KeyDown" IsEnabled="False"></TextBox>
+                </Grid>
+                <Grid Grid.Row="9" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <TextBlock Text="영수증 입력" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch"/>
+                </Grid>
+                <Grid Grid.Row="10" Grid.Column="1" VerticalAlignment="Stretch">
+                    <TextBox x:Name="Bill" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch" Margin="0,0,0,0" KeyDown="Bill_KeyDown" IsEnabled="False"></TextBox>
                 </Grid>
             </Grid>
         </Grid>

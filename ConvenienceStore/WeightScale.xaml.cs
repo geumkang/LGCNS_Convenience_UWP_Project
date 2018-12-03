@@ -49,27 +49,6 @@ namespace ConvenienceStore
 
         async void OnCreate(object sender, RoutedEventArgs e)
         {
-            CoreApplicationView newCoreView = CoreApplication.CreateNewView();
-
-            ApplicationView newAppView = null;
-            int mainViewId = ApplicationView.GetApplicationViewIdForWindow(
-              CoreApplication.MainView.CoreWindow);
-
-            await newCoreView.Dispatcher.RunAsync(
-              CoreDispatcherPriority.Normal,
-              () =>
-              {
-                  newAppView = ApplicationView.GetForCurrentView();
-                  Window.Current.Content = new OuterSet();
-                  Window.Current.Activate();
-              });
-
-            await ApplicationViewSwitcher.TryShowAsStandaloneAsync(
-              newAppView.Id,
-              ViewSizePreference.UseHalf,
-              mainViewId,
-              ViewSizePreference.UseHalf);
-
             foreach(ProductBind product in bind)
             { 
                 totalWeight += product.weight * product.count;
@@ -81,18 +60,18 @@ namespace ConvenienceStore
         {
             while(true)
             {
-                if (SharedDataValue.weight != 0)
+                if (SharedData.weight != 0)
                 {
-                    if (SharedDataValue.weight <= totalWeight * 1.01f
-                        && SharedDataValue.weight >= totalWeight * 0.99f)
+                    if (SharedData.weight <= totalWeight * 1.01f
+                        && SharedData.weight >= totalWeight * 0.99f)
                     {
-                        SharedDataValue.initWeight();
+                        SharedData.initWeight();
                         Frame parentFrame = Window.Current.Content as Frame;
                         parentFrame.Navigate(typeof(CardInsert));
 
                         break;
                     }
-                    SharedDataValue.initWeight();
+                    SharedData.initWeight();
                 }
             }
         }

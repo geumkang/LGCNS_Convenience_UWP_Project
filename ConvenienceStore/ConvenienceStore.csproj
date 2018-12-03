@@ -121,7 +121,7 @@
     <Compile Include="SelectJob.xaml.cs">
       <DependentUpon>SelectJob.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SharedDataValue.cs" />
+    <Compile Include="SharedData.cs" />
     <Compile Include="SqlManager.cs" />
     <Compile Include="WeightScale.xaml.cs">
       <DependentUpon>WeightScale.xaml</DependentUpon>
@@ -131,11 +131,14 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\Buy.png" />
+    <Content Include="Assets\Card.gif" />
     <Content Include="Assets\Card.png" />
     <Content Include="Assets\Fonts\BMDOHYEON.ttf" />
     <None Include="ConvenienceStore_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Refund.png" />
     <Content Include="Assets\Scale.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

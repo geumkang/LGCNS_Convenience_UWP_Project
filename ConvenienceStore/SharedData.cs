@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConvenienceStore
 {
-    static class SharedDataValue
+    static class SharedData
     {
         public static float weight = 0f;
         public static bool userState = false;
