@@ -23,6 +23,7 @@ namespace ConvenienceStore
     public sealed partial class WeightScale : Page
     {
         List<ProductBind> bind;
+        static float totalWeight = 0;
 
         public WeightScale()
         {
@@ -68,7 +69,32 @@ namespace ConvenienceStore
               ViewSizePreference.UseHalf,
               mainViewId,
               ViewSizePreference.UseHalf);
+
+            foreach(ProductBind product in bind)
+            { 
+                totalWeight += product.weight * product.count;
+            }
+            CheckInputWeight();
         }
 
+        static void CheckInputWeight()
+        {
+            while(true)
+            {
+                if (SharedDataValue.weight != 0)
+                {
+                    if (SharedDataValue.weight <= totalWeight * 1.01f
+                        && SharedDataValue.weight >= totalWeight * 0.99f)
+                    {
+                        SharedDataValue.initWeight();
+                        Frame parentFrame = Window.Current.Content as Frame;
+                        parentFrame.Navigate(typeof(CardInsert));
+
+                        break;
+                    }
+                    SharedDataValue.initWeight();
+                }
+            }
+        }
     }
 }

@@ -25,6 +25,16 @@ namespace ConvenienceStore
         public OuterSet()
         {
             this.InitializeComponent();
+
+        }
+
+        private void Value_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                SharedDataValue.weight = float.Parse(Value.Text);
+                Value.Text = "";
+            }
         }
     }
 }

@@ -121,6 +121,7 @@
     <Compile Include="SelectJob.xaml.cs">
       <DependentUpon>SelectJob.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SharedDataValue.cs" />
     <Compile Include="SqlManager.cs" />
     <Compile Include="WeightScale.xaml.cs">
       <DependentUpon>WeightScale.xaml</DependentUpon>

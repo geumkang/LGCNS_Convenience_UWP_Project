@@ -32,7 +32,7 @@
                         <ColumnDefinition Width="0.3*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="1">
-                        <TextBox x:Name="Value" FontFamily="BM DoHyeon" FontSize="50" HorizontalAlignment="Stretch" Margin="0,0,0,50"></TextBox>
+                        <TextBox x:Name="Value" FontFamily="BM DoHyeon" FontSize="50" HorizontalAlignment="Stretch" Margin="0,0,0,50" KeyDown="Value_KeyDown"></TextBox>
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center">
