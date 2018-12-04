@@ -20,30 +20,25 @@ namespace ConvenienceStore
     /// <summary>
     /// 자체적으로 사용하거나 프레임 내에서 탐색할 수 있는 빈 페이지입니다.
     /// </summary>
-    public sealed partial class SelectJob : Page
+    public sealed partial class BillRegister : Page
     {
-        public static int SELECTPAGE = 0;
-        public SelectJob()
+        public BillRegister()
         {
             this.InitializeComponent();
-            time T = new time();
-            T.Date = System.DateTime.Now.ToString("yyyy년 MM월 dd일 hh시 mm분");
-
-            time.DataContext = T;
         }
 
-        private void Purchase_Click(object sender, RoutedEventArgs e)
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            App.rootFrame.Navigate(typeof(Purchase));
+             App.rootFrame.Navigate(typeof(SelectJob));
         }
 
-        private void Refund_Click(object sender, RoutedEventArgs e)
+        public static void CheckInputBill()
         {
-            App.rootFrame.Navigate(typeof(BillRegister));
+            if (SharedData.billNum != null)
+            {   
+                SharedData.initBillNum();
+                App.rootFrame.Navigate(typeof(Refund));
+            }
         }
     }
-}
-class time
-{
-    public string Date { get; set; }
 }

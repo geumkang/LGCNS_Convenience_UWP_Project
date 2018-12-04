@@ -14,8 +14,12 @@ namespace ConvenienceStore
         public static float weight = 0f;
         public static bool userState = false;
         public static string cardNum = null;
+        public static string billNum = null;
 
         public static void initWeight() { weight = 0f; }
+        public static void initUserState() { userState = false; }
+        public static void initCardNum() { cardNum = null; }
+        public static void initBillNum() { billNum = null; }
         public static void changeUserState() { userState = !userState; }
     }
 }

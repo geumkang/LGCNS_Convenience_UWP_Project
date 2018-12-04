@@ -41,5 +41,15 @@ namespace ConvenienceStore
             base.OnNavigatedTo(e);
             bind = (List<ProductBind>)e.Parameter;
         }
+
+        public static void CheckInputCard()
+        {
+            if (SharedData.cardNum != null)
+            {
+                SharedData.initCardNum();
+                //결제 완료 페이지로 이동 + 몇초 있다가 메인으로 ㄱㄱ
+                //App.rootFrame.Navigate(typeof(Refund));
+            }
+        }
     }
 }

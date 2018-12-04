@@ -98,6 +98,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BillRegister.xaml.cs">
+      <DependentUpon>BillRegister.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CardInsert.xaml.cs">
       <DependentUpon>CardInsert.xaml</DependentUpon>
     </Compile>
@@ -155,6 +158,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="AddDiscount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BillRegister.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

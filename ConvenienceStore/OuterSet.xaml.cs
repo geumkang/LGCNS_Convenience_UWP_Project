@@ -95,25 +95,54 @@ namespace ConvenienceStore
                         if(frame.SourcePageType == typeof(WeightScale))
                         {
                             WeightScale.CheckInputWeight();
-
-                            //WeightScale ws = App.rootFrame.Content as WeightScale;
-                            //Grid grid = ws.Content as Grid;
-                            //TextBlock a = grid.FindName("please") as TextBlock;
-                            //a.Text = "12";
                         }
                     });
             }
-
         }
 
-        private void Card_KeyDown(object sender, KeyRoutedEventArgs e)
+        private async void Card_KeyDown(object sender, KeyRoutedEventArgs e)
         {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                SharedData.cardNum = Card.Text;
+                Card.Text = "";
 
+                await ApplicationViewSwitcher.SwitchAsync(App.mainViewId);
+                await CoreApplication.MainView.Dispatcher.RunAsync(
+                    CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        Frame frame = Window.Current.Content as Frame;
+                        if (frame.SourcePageType == typeof(CardInsert))
+                        {
+                            // DB에서 카드 정보 + 적립 ~
+                            CardInsert.CheckInputCard();
+                        }
+                    });
+            }
         }
 
-        private void Bill_KeyDown(object sender, KeyRoutedEventArgs e)
+        private async void Bill_KeyDown(object sender, KeyRoutedEventArgs e)
         {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                SharedData.billNum = Bill.Text;
+                Bill.Text = "";
 
+                await ApplicationViewSwitcher.SwitchAsync(App.mainViewId);
+                await CoreApplication.MainView.Dispatcher.RunAsync(
+                    CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        Frame frame = Window.Current.Content as Frame;
+                        if (frame.SourcePageType == typeof(BillRegister))
+                        {
+                            // DB에서 구매 이력 + 영수증 번호 비교
+
+                            BillRegister.CheckInputBill();
+                        }
+                    });
+            }
         }
     }
 }

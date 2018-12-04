@@ -34,32 +34,6 @@ namespace ConvenienceStore
             //rootFrame.Navigate(typeof(Login));
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-//            CoreApplicationView newCoreView = CoreApplication.CreateNewView();
-//;
-//            ApplicationView newAppView = null;
-//            mainViewId = ApplicationView.GetApplicationViewIdForWindow(
-//              CoreApplication.MainView.CoreWindow);
-
-//            await newCoreView.Dispatcher.RunAsync(
-//              CoreDispatcherPriority.Normal,
-//              () =>
-//              {
-//                  newAppView = ApplicationView.GetForCurrentView();
-//                  SharedData.settingFrame = new Frame();
-//                  Window.Current.Content = SharedData.settingFrame;
-//                  SharedData.settingFrame.Navigate(typeof(OuterSet));
-//                  Window.Current.Activate();
-//                  //Window.Current.Content = new OuterSet();
-//                  //Window.Current.Activate();
-//              });
-
-//            await ApplicationViewSwitcher.TryShowAsStandaloneAsync(
-//              newAppView.Id,
-//              ViewSizePreference.UseHalf,
-//              mainViewId,
-//              ViewSizePreference.UseHalf);
-        }
+        
     }
 }

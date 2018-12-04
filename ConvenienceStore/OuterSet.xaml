@@ -64,13 +64,13 @@
                     <TextBlock Text="카드 번호 입력" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch"/>
                 </Grid>
                 <Grid Grid.Row="8" Grid.Column="1" VerticalAlignment="Stretch">
-                    <TextBox x:Name="Card" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch" Margin="0,0,0,0" KeyDown="Card_KeyDown" IsEnabled="False"></TextBox>
+                    <TextBox x:Name="Card" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch" Margin="0,0,0,0" KeyDown="Card_KeyDown" IsEnabled="true"></TextBox>
                 </Grid>
                 <Grid Grid.Row="9" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                     <TextBlock Text="영수증 입력" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch"/>
                 </Grid>
                 <Grid Grid.Row="10" Grid.Column="1" VerticalAlignment="Stretch">
-                    <TextBox x:Name="Bill" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch" Margin="0,0,0,0" KeyDown="Bill_KeyDown" IsEnabled="False"></TextBox>
+                    <TextBox x:Name="Bill" FontFamily="BM DoHyeon" FontSize="25" HorizontalAlignment="Stretch" Margin="0,0,0,0" KeyDown="Bill_KeyDown" IsEnabled="true"></TextBox>
                 </Grid>
             </Grid>
         </Grid>
