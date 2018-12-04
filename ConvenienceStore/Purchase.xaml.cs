@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -81,12 +82,13 @@ namespace ConvenienceStore
             this.IsEnabled = true;
         }
 
-        private void payBtn_Click(object sender, RoutedEventArgs e)
+        private async void payBtn_Click(object sender, RoutedEventArgs e)
         {
             if (productBinds.Count != 0)
             {
                 SelectJob.SELECTPAGE = 1;
                 App.rootFrame.Navigate(typeof(WeightScale), productBinds);
+                await ApplicationViewSwitcher.SwitchAsync(App.subViewId);
             }
         }
 

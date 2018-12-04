@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -37,9 +38,10 @@ namespace ConvenienceStore
             App.rootFrame.Navigate(typeof(Purchase));
         }
 
-        private void Refund_Click(object sender, RoutedEventArgs e)
+        private async void Refund_Click(object sender, RoutedEventArgs e)
         {
             App.rootFrame.Navigate(typeof(BillRegister));
+            await ApplicationViewSwitcher.SwitchAsync(App.subViewId);
         }
     }
 }

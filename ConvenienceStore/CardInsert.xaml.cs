@@ -18,7 +18,7 @@ namespace ConvenienceStore
     /// </summary>
     public sealed partial class CardInsert : Page
     {
-        List<ProductBind> bind;
+        static List<ProductBind> bind;
 
         public CardInsert()
         {
@@ -48,7 +48,7 @@ namespace ConvenienceStore
             {
                 SharedData.initCardNum();
                 //결제 완료 페이지로 이동 + 몇초 있다가 메인으로 ㄱㄱ
-                //App.rootFrame.Navigate(typeof(Refund));
+                App.rootFrame.Navigate(typeof(PayComplete), bind);
             }
         }
     }

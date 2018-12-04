@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -95,10 +96,11 @@ namespace ConvenienceStore
             this.IsEnabled = true;
         }
 
-        private void payBtn_Click(object sender, RoutedEventArgs e)
+        private async void payBtn_Click(object sender, RoutedEventArgs e)
         {
             SelectJob.SELECTPAGE = 2;
             App.rootFrame.Navigate(typeof(WeightScale), productBinds);
+            await ApplicationViewSwitcher.SwitchAsync(App.subViewId);
         }
 
         private void addProductTxtBox_KeyDown(object sender, KeyRoutedEventArgs e)

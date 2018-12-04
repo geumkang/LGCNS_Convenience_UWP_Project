@@ -54,7 +54,7 @@ namespace ConvenienceStore
             }
         }
 
-        public static void CheckInputWeight()
+        public static async void CheckInputWeight()
         {
             if (SharedData.weight != 0)
             {
@@ -62,7 +62,9 @@ namespace ConvenienceStore
                     && SharedData.weight >= totalWeight * 0.99f)
                 {
                     SharedData.initWeight();
+                    totalWeight = 0;
                     App.rootFrame.Navigate(typeof(CardInsert), bind);
+                    await ApplicationViewSwitcher.SwitchAsync(App.subViewId);
                 }
             }
         }

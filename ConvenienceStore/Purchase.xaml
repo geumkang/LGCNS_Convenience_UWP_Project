@@ -111,7 +111,7 @@
                 </Grid>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1" Margin="10,10,10,10" Background="White" CornerRadius="10,10,10,10">
-                <TextBox x:Name="addProductTxtBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="10,0,10,10" FontSize="30" KeyDown="addProductTxtBox_KeyDown"/>
+                <TextBox x:Name="addProductTxtBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="10,0,10,10" FontFamily="BM DoHyeon" FontSize="30" KeyDown="addProductTxtBox_KeyDown"/>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0" Margin="10,10,10,10" Background="White" CornerRadius="10,10,10,10">
                 <Grid.RowDefinitions>
