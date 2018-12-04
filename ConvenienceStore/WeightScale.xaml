@@ -31,7 +31,7 @@
                     <Image x:Name="Card" Source="/Assets/Scale.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" Stretch="Uniform"></Image>
                 </Grid>
                 <Grid Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBlock Text="저울 위에 상품을 올려주세요" FontFamily="BM DoHyeon" FontSize="50" Margin="0,20,0,0"/>
+                    <TextBlock x:Name="please" Text="저울 위에 상품을 올려주세요" FontFamily="BM DoHyeon" FontSize="50" Margin="0,20,0,0"/>
                 </Grid>
             </Grid>
         </Grid>

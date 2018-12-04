@@ -22,7 +22,7 @@ namespace ConvenienceStore
 {
     public sealed partial class WeightScale : Page
     {
-        List<ProductBind> bind;
+        static List<ProductBind> bind;
         static float totalWeight = 0;
 
         public WeightScale()
@@ -32,11 +32,10 @@ namespace ConvenienceStore
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            Frame parentFrame = Window.Current.Content as Frame;
-            if (MainPage.SELECTPAGE == 1)
-                parentFrame.Navigate(typeof(Purchase), bind);
-            else if (MainPage.SELECTPAGE == 2)
-                parentFrame.Navigate(typeof(Refund), bind);
+            if (SelectJob.SELECTPAGE == 1)
+                App.rootFrame.Navigate(typeof(Purchase), bind);
+            else if (SelectJob.SELECTPAGE == 2)
+                App.rootFrame.Navigate(typeof(Refund), bind);
             else
                 Console.Write("SELECTPAGE ERROR : Back Btn : WeightScale");
         }
@@ -47,31 +46,23 @@ namespace ConvenienceStore
             bind = (List<ProductBind>)e.Parameter;
         }
 
-        async void OnCreate(object sender, RoutedEventArgs e)
+        void OnCreate(object sender, RoutedEventArgs e)
         {
             foreach(ProductBind product in bind)
             { 
                 totalWeight += product.weight * product.count;
             }
-            CheckInputWeight();
         }
 
-        static void CheckInputWeight()
+        public static void CheckInputWeight()
         {
-            while(true)
+            if (SharedData.weight != 0)
             {
-                if (SharedData.weight != 0)
+                if (SharedData.weight <= totalWeight * 1.01f
+                    && SharedData.weight >= totalWeight * 0.99f)
                 {
-                    if (SharedData.weight <= totalWeight * 1.01f
-                        && SharedData.weight >= totalWeight * 0.99f)
-                    {
-                        SharedData.initWeight();
-                        Frame parentFrame = Window.Current.Content as Frame;
-                        parentFrame.Navigate(typeof(CardInsert));
-
-                        break;
-                    }
                     SharedData.initWeight();
+                    App.rootFrame.Navigate(typeof(CardInsert), bind);
                 }
             }
         }

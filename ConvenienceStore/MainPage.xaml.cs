@@ -23,35 +23,43 @@ namespace ConvenienceStore
     public sealed partial class MainPage : Page
     {
         public static int SELECTPAGE = 0;
-
+        public static int mainViewId  = 0;
         public MainPage()
         {
             this.InitializeComponent();
             contentFrame.Navigate(typeof(Login));
+            
+            //rootFrame = new Frame();
+            //Window.Current.Content = rootFrame;
+            //rootFrame.Navigate(typeof(Login));
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            CoreApplicationView newCoreView = CoreApplication.CreateNewView();
+//            CoreApplicationView newCoreView = CoreApplication.CreateNewView();
+//;
+//            ApplicationView newAppView = null;
+//            mainViewId = ApplicationView.GetApplicationViewIdForWindow(
+//              CoreApplication.MainView.CoreWindow);
 
-            ApplicationView newAppView = null;
-            int mainViewId = ApplicationView.GetApplicationViewIdForWindow(
-              CoreApplication.MainView.CoreWindow);
+//            await newCoreView.Dispatcher.RunAsync(
+//              CoreDispatcherPriority.Normal,
+//              () =>
+//              {
+//                  newAppView = ApplicationView.GetForCurrentView();
+//                  SharedData.settingFrame = new Frame();
+//                  Window.Current.Content = SharedData.settingFrame;
+//                  SharedData.settingFrame.Navigate(typeof(OuterSet));
+//                  Window.Current.Activate();
+//                  //Window.Current.Content = new OuterSet();
+//                  //Window.Current.Activate();
+//              });
 
-            await newCoreView.Dispatcher.RunAsync(
-              CoreDispatcherPriority.Normal,
-              () =>
-              {
-                  newAppView = ApplicationView.GetForCurrentView();
-                  Window.Current.Content = new OuterSet();
-                  Window.Current.Activate();
-              });
-
-            await ApplicationViewSwitcher.TryShowAsStandaloneAsync(
-              newAppView.Id,
-              ViewSizePreference.UseHalf,
-              mainViewId,
-              ViewSizePreference.UseHalf);
+//            await ApplicationViewSwitcher.TryShowAsStandaloneAsync(
+//              newAppView.Id,
+//              ViewSizePreference.UseHalf,
+//              mainViewId,
+//              ViewSizePreference.UseHalf);
         }
     }
 }

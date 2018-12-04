@@ -97,9 +97,8 @@ namespace ConvenienceStore
 
         private void payBtn_Click(object sender, RoutedEventArgs e)
         {
-            MainPage.SELECTPAGE = 2;
-            Frame parentFrame = Window.Current.Content as Frame;
-            parentFrame.Navigate(typeof(WeightScale), productBinds);
+            SelectJob.SELECTPAGE = 2;
+            App.rootFrame.Navigate(typeof(WeightScale), productBinds);
         }
 
         private void addProductTxtBox_KeyDown(object sender, KeyRoutedEventArgs e)
@@ -198,8 +197,7 @@ namespace ConvenienceStore
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            Frame parentFrame = Window.Current.Content as Frame;
-            parentFrame.Navigate(typeof(SelectJob));
+            App.rootFrame.Navigate(typeof(SelectJob));
         }
     }
 }

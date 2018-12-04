@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -52,7 +53,7 @@ namespace ConvenienceStore
         private async void discountBtn_Click(object sender, RoutedEventArgs e)
         {
             this.IsEnabled = false;
-
+            
             var dialog = new AddDiscount { Text = "" };
             var result = await dialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
@@ -82,9 +83,11 @@ namespace ConvenienceStore
 
         private void payBtn_Click(object sender, RoutedEventArgs e)
         {
-            MainPage.SELECTPAGE = 1;
-            Frame parentFrame = Window.Current.Content as Frame;
-            parentFrame.Navigate(typeof(WeightScale), productBinds);
+            if (productBinds.Count != 0)
+            {
+                SelectJob.SELECTPAGE = 1;
+                App.rootFrame.Navigate(typeof(WeightScale), productBinds);
+            }
         }
 
         private void addProductTxtBox_KeyDown(object sender, KeyRoutedEventArgs e)
@@ -183,8 +186,7 @@ namespace ConvenienceStore
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            Frame parentFrame = Window.Current.Content as Frame;
-            parentFrame.Navigate(typeof(SelectJob));
+            App.rootFrame.Navigate(typeof(SelectJob));
         }
     }
 }

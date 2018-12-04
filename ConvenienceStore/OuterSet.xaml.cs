@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,33 +30,78 @@ namespace ConvenienceStore
         public OuterSet()
         {
             this.InitializeComponent();
-
+            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
         }
-
-        private void ID_KeyDown(object sender, KeyRoutedEventArgs e)
+        
+        private async void ID_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
-                Weight.IsEnabled = true;
-                //SharedData.ID = ID.Text;
-                //ID.Text = "";
+                if(SharedData.userState == true)
+                {
+                    ContentDialog test = new ContentDialog
+                    {
+                        Title = "입장 불가",
+                        Content = "매장 안에 손님이 있습니다.",
+                        CloseButtonText = "확인"
+                    };
+                    ContentDialogResult Result = await test.ShowAsync();
+                    
+                }
+                else
+                {
+                    // DB에서 User 정보 검색
 
-                //frame.Navigate(typeof(), SharedData.ID);
+                    SharedData.userState = true;
+
+                    Usable.Text = "사용 중";
+                    Usable.Foreground = new SolidColorBrush(Colors.Red);
+                }
+
+                ID.Text = "";
             }
-
         }
 
         private void Exit_KeyDown(object sender, KeyRoutedEventArgs e)
         {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                if (SharedData.userState == true)
+                {
+                    // DB에서 User 정보 검색
 
+                    SharedData.userState = false;
+
+                    Usable.Text = "사용 가능";
+                    Usable.Foreground = new SolidColorBrush(Color.FromArgb(255,0,120,212));
+                }
+                Exit.Text = "";
+            }
         }
 
-        private void Weight_KeyDown(object sender, KeyRoutedEventArgs e)
+        private async void Weight_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
                 SharedData.weight = float.Parse(Weight.Text);
                 Weight.Text = "";
+
+                await ApplicationViewSwitcher.SwitchAsync(App.mainViewId);
+                await CoreApplication.MainView.Dispatcher.RunAsync(
+                    CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        Frame frame = Window.Current.Content as Frame;
+                        if(frame.SourcePageType == typeof(WeightScale))
+                        {
+                            WeightScale.CheckInputWeight();
+
+                            //WeightScale ws = App.rootFrame.Content as WeightScale;
+                            //Grid grid = ws.Content as Grid;
+                            //TextBlock a = grid.FindName("please") as TextBlock;
+                            //a.Text = "12";
+                        }
+                    });
             }
 
         }

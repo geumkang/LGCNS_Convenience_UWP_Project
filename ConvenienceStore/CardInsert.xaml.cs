@@ -28,8 +28,12 @@ namespace ConvenienceStore
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            Frame parentFrame = Window.Current.Content as Frame;
-            parentFrame.Navigate(typeof(WeightScale), bind);
+            if (SelectJob.SELECTPAGE == 1)
+                App.rootFrame.Navigate(typeof(Purchase), bind);
+            else if (SelectJob.SELECTPAGE == 2)
+                App.rootFrame.Navigate(typeof(Refund), bind);
+            else
+                Console.Write("SELECTPAGE ERROR : Back Btn : WeightScale");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

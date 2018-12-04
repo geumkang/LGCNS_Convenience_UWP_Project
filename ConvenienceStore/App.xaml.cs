@@ -5,8 +5,11 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -17,11 +20,14 @@ using Windows.UI.Xaml.Navigation;
 
 namespace ConvenienceStore
 {
+    
     /// <summary>
     /// 기본 응용 프로그램 클래스를 보완하는 응용 프로그램별 동작을 제공합니다.
     /// </summary>
     sealed partial class App : Application
     {
+        public static Frame rootFrame;
+        public static int mainViewId;
         /// <summary>
         /// Singleton 응용 프로그램 개체를 초기화합니다. 이것은 실행되는 작성 코드의 첫 번째
         /// 줄이며 따라서 main() 또는 WinMain()과 논리적으로 동일합니다.
@@ -37,9 +43,9 @@ namespace ConvenienceStore
         /// 특정 파일을 여는 등 응용 프로그램을 시작할 때
         /// </summary>
         /// <param name="e">시작 요청 및 프로세스에 대한 정보입니다.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame = Window.Current.Content as Frame;
 
             // 창에 콘텐츠가 이미 있는 경우 앱 초기화를 반복하지 말고,
             // 창이 활성화되어 있는지 확인하십시오.
@@ -66,11 +72,34 @@ namespace ConvenienceStore
                     // 탐색 스택이 복원되지 않으면 첫 번째 페이지로 돌아가고
                     // 필요한 정보를 탐색 매개 변수로 전달하여 새 페이지를
                     // 구성합니다.
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(SelectJob), e.Arguments);
                 }
                 // 현재 창이 활성 창인지 확인
                 Window.Current.Activate();
             }
+
+            CoreApplicationView newCoreView = CoreApplication.CreateNewView();
+            
+            ApplicationView newAppView = null;
+            mainViewId = ApplicationView.GetApplicationViewIdForWindow(
+              CoreApplication.MainView.CoreWindow);
+
+            await newCoreView.Dispatcher.RunAsync(
+              CoreDispatcherPriority.Normal,
+              () =>
+              {
+                  newAppView = ApplicationView.GetForCurrentView();
+                  Frame frame = new Frame();
+                  Window.Current.Content = frame;
+                  frame.Navigate(typeof(OuterSet));
+                  Window.Current.Activate();
+              });
+
+            await ApplicationViewSwitcher.TryShowAsStandaloneAsync(
+              newAppView.Id,
+              ViewSizePreference.UseHalf,
+              mainViewId,
+              ViewSizePreference.UseHalf);
         }
 
         /// <summary>

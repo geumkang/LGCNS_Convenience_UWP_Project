@@ -22,6 +22,7 @@ namespace ConvenienceStore
     /// </summary>
     public sealed partial class SelectJob : Page
     {
+        public static int SELECTPAGE = 0;
         public SelectJob()
         {
             this.InitializeComponent();
@@ -33,7 +34,7 @@ namespace ConvenienceStore
 
         private void Purchase_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Purchase));
+            App.rootFrame.Navigate(typeof(Purchase));
             //Frame parentFrame = Window.Current.Content as Frame;
             //parentFrame.Navigate(typeof(Purchase));
         }
