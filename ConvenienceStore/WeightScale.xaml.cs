@@ -48,6 +48,7 @@ namespace ConvenienceStore
 
         void OnCreate(object sender, RoutedEventArgs e)
         {
+            totalWeight = 0;
             foreach(ProductBind product in bind)
             { 
                 totalWeight += product.weight * product.count;
