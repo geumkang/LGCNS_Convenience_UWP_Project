@@ -27,6 +27,9 @@ namespace ConvenienceStore
         public SelectJob()
         {
             this.InitializeComponent();
+            ApplicationView.PreferredLaunchViewSize = new Size(480, 800);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+
             SqlManager.connectDB();
             time T = new time();
             T.Date = System.DateTime.Now.ToString("yyyy년 MM월 dd일 hh시 mm분");
