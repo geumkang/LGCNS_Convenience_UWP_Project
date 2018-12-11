@@ -22,16 +22,38 @@
         <Grid Grid.Row="1" Background="WhiteSmoke">
             <Grid Background="white" Margin="20,20,20,20" CornerRadius="10,10,10,10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.35*"/>
                     <RowDefinition Height="0.4*"/>
-                    <RowDefinition Height="0.4*"/>
-                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.35*"/>
+                    <RowDefinition Height="0.2*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="1">
                     <TextBlock x:Name="Complete" Text="" FontFamily="BM DoHyeon" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0"/>
                 </Grid>
                 <Grid Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBlock x:Name="Point" Text="" FontFamily="BM DoHyeon" FontSize="40" Margin="0,20,0,0"/>
+                    <TextBlock x:Name="Point" Text="" FontFamily="BM DoHyeon" FontSize="40" Margin="0,20,0,0" TextAlignment="Center" />
+                </Grid>
+                <Grid Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.5*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" VerticalAlignment="Center">
+                        <TextBlock x:Name="bill" Text="영수증을 출력하시겠습니까?" FontFamily="BM DoHyeon" FontSize="40"/>
+                    </Grid>
+                    <Grid Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Button x:Name="yes" Content="예" Margin="0,5,15,5" FontFamily="BM DoHyeon" FontSize="40" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="yes_Click"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Button x:Name="no" Content="아니오" Margin="15,5,0,5" FontFamily="BM DoHyeon" FontSize="40" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="no_Click"/>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>

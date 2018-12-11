@@ -56,7 +56,7 @@ namespace ConvenienceStore
                     }
                     for (int i = 0; i < productBinds.Count; i++)
                     {
-                        products.Add(new Product(productBinds[i].name, productBinds[i].cost, productBinds[i].count, productBinds[i].weight, productBinds[i].discount));
+                        products.Add(new Product(productBinds[i].id ,productBinds[i].name, productBinds[i].cost, productBinds[i].count, productBinds[i].weight, productBinds[i].discount));
                         totalInfo.totalCost += productBinds[i].totalCost;
                         totalInfo.weight += productBinds[i].weight * productBinds[i].count;
                     }
@@ -143,7 +143,7 @@ namespace ConvenienceStore
                 // 없을 때
                 else
                 {
-                    Product p = new Product(addProductTxtBox.Text, 1000, 2, 5.5f);
+                    Product p = new Product("id", addProductTxtBox.Text, 1000, 2, 5.5f);
                     p.setTotalCost((int)(p.getTotalCost() * discount));
                     p.setDiscount(p.getCost() * p.getCount() - p.getTotalCost());
 

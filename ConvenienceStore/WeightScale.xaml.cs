@@ -67,6 +67,17 @@ namespace ConvenienceStore
                     App.rootFrame.Navigate(typeof(CardInsert), bind);
                     await ApplicationViewSwitcher.SwitchAsync(App.subViewId);
                 }
+                else
+                {
+                    ContentDialog test = new ContentDialog
+                    {
+                        Title = "무게 불일치",
+                        Content = "상품 목록의 무게와 일치하지 않습니다.\n 상품을 바르게 올려주세요.",
+                        CloseButtonText = "확인"
+                    };
+
+                    await test.ShowAsync();
+                }
             }
         }
     }

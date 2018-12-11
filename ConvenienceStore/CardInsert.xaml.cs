@@ -46,10 +46,51 @@ namespace ConvenienceStore
         {
             if (SharedData.cardNum != null)
             {
+
+                string purchaseID = SharedData.storeID + "_" + CurrentTimeMillis().ToString();
+
+                // 입력 DB를 넣어라
+                string query = "insert into tradeHistory values('" + purchaseID + 
+                    "', '" + SharedData.memberID + "', '" + SharedData.storeID + "', '" + SharedData.isDiscount() + "', '" +
+                    SharedData.isMembership() + "', now() , '" + SharedData.cardNum + "')";
+                SqlManager.insertQuery(query);
+
+                for(int i = 0; i < bind.Count; i++)
+                {
+                    query = "insert into tradeDetail set productID = '" + bind[i].id + "', tradeHistoryID = '" + purchaseID
+                        + "', amount = " + bind[i].count + ", unitPrice = (select price from product where productID = '"
+                        + bind[i].id + "')";
+                    SqlManager.insertQuery(query);
+                }
+
+                if (SharedData.membershipPoint != null)
+                {
+                    int point = 0;
+                    foreach (ProductBind product in bind)
+                    {
+                        point += product.totalCost;
+                    }
+                    point = (int)(point * 0.01);
+                    SharedData.point = point;
+                    query = "insert into pointHistory set tradeHistoryId = '" + purchaseID + "', memberID = '" 
+                        + SharedData.memberID + "', point = " + point;
+                    SqlManager.insertQuery(query);
+                    query = "update member set membershipPoint = membershipPoint + " + point + " where memberID = '" + SharedData.memberID 
+                        + "'";
+                    SqlManager.insertQuery(query);
+                }
+
                 SharedData.initCardNum();
                 //결제 완료 페이지로 이동 + 몇초 있다가 메인으로 ㄱㄱ
                 App.rootFrame.Navigate(typeof(PayComplete), bind);
             }
+        }
+
+        private static readonly DateTime Jan1st1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+        public static long CurrentTimeMillis()
+        {
+            return (long)(DateTime.UtcNow - Jan1st1970).TotalMilliseconds;
         }
     }
 }

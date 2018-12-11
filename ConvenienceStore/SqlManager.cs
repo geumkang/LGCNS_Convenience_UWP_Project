@@ -9,22 +9,21 @@ namespace ConvenienceStore
 {
     class SqlManager
     {
-        public static SqlManager sqlManager = new SqlManager();
-        private MySqlConnection conn;
+        public static SqlManager sqlManager;
+        private static MySqlConnection conn;
 
-        private const string serverConfig = "server=localhost;user=root;database=mycontacts;port=3306;password=123";
+        private const string serverConfig = "server=localhost;user=root;database=cns;port=3306;password=123";
 
         private SqlManager() {
             conn = new MySqlConnection(serverConfig);
-            connectDB();
         }
 
-        public SqlManager getManager()
+        public static SqlManager getManager()
         {
             return sqlManager;
         }
 
-        public string query(string sql)
+        public static string query(string sql, int columnNum)
         {
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader rdr = cmd.ExecuteReader();
@@ -32,18 +31,31 @@ namespace ConvenienceStore
 
             while (rdr.Read())
             {
-                sb.AppendLine(rdr[1].ToString());
+                for (int i = 0; i < columnNum; i++)
+                {
+                    sb.Append(rdr[i].ToString());
+                    sb.Append("\t");
+                }
+                sb.Append("\n");
             }
 
+            rdr.Dispose();
             return sb.ToString();
         }
 
-        public void connectDB()
+        public static void insertQuery(string sql)
         {
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            cmd.ExecuteNonQuery();
+        }
+
+        public static void connectDB()
+        {
+            sqlManager = new SqlManager();
             conn.Open();
         }
 
-        public void disconnectDB()
+        public static void disconnectDB()
         {
             conn.Close();
         }
