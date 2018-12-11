@@ -42,15 +42,33 @@ namespace ConvenienceStore
             bind = (List<ProductBind>)e.Parameter;
         }
 
-        public static void CheckInputCard()
+        public async static void CheckInputCard()
         {
+            string query;
             if (SharedData.cardNum != null)
             {
+                if (SelectJob.SELECTPAGE == 2) {
+                    query = "select cardNumber from tradehistory where tradeHistoryID = '" + SharedData.billNum + "'";
+                    string cardNum = SqlManager.query(query, 1);
+                    cardNum = cardNum.Substring(0, cardNum.Length - 2);
 
+                    if(cardNum != SharedData.cardNum)
+                    {
+                        ContentDialog test = new ContentDialog
+                        {
+                            Title = "결제정보 불일치",
+                            Content = "결제된 카드와 일치하지 않습니다.",
+                            CloseButtonText = "확인"
+                        };
+
+                        await test.ShowAsync();
+                        return;
+                    }
+                }
                 string purchaseID = SharedData.storeID + "_" + CurrentTimeMillis().ToString();
 
                 // 입력 DB를 넣어라
-                string query = "insert into tradeHistory values('" + purchaseID + 
+                query = "insert into tradeHistory values('" + purchaseID + 
                     "', '" + SharedData.memberID + "', '" + SharedData.storeID + "', '" + SharedData.isDiscount() + "', '" +
                     SharedData.isMembership() + "', now() , '" + SharedData.cardNum + "')";
                 SqlManager.insertQuery(query);

@@ -74,17 +74,14 @@ namespace ConvenienceStore
             // 환불 절차
             else
             {
-                if (isMember)
+                if (SharedData.isMembership() == "1")
                 {
-                    foreach (ProductBind product in bind)
-                        totalCost += product.cost * product.count;
-                    int addPoint = (int)(totalCost / 10);
-
-                    Point.Text = addPoint + " 포인트가 차감되었습니다\n 잔여 포인트는 " + (point - addPoint) + "점 입니다";
+                    Point.Text = SharedData.point + " 포인트가 차감되었습니다\n잔여 포인트는 " +
+                        (int.Parse(SharedData.membershipPoint) - SharedData.point) + "점 입니다";
                 }
                 else
                 {
-                    Point.Text = "멤버십에 가입해 보세요";
+                    Point.Text = "1%씩 적립받을 수 있는\n멤버십에 가입해 보세요";
                 }
             }
         }

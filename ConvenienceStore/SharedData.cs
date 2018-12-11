@@ -22,6 +22,7 @@ namespace ConvenienceStore
         public static string discountCard = null;
         public static string membershipPoint = null;
         public static int point = 0;
+        public static string discountHis = null;
 
         public static void initWeight() { weight = 0f; }
         public static void initUserState() { userState = false; }

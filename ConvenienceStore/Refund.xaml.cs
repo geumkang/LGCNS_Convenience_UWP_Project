@@ -23,22 +23,31 @@ namespace ConvenienceStore
     /// </summary>
     public sealed partial class Refund : Page
     {
-        double DiscountRate = 0.9;
+        double DiscountRate = 1.0;
         List<Product> products;
         List<ProductBind> productBinds;
+        List<ProductBind> buyHistory;
         TotalInfo totalInfo;
         Boolean isDiscounted;
+        Boolean pass;
 
         public Refund()
         {
 
             this.InitializeComponent();
 
+            isDiscounted = false;
+
             products = new List<Product>();
             productBinds = new List<ProductBind>();
+            buyHistory = new List<ProductBind>();
+            if(SharedData.discountCard != null)
+            {
+                isDiscounted = true;
+                DiscountRate = 0.9;
+            }
             totalInfo = new TotalInfo() { totalCost = 0, weight = 0f };
 
-            isDiscounted = false;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -46,56 +55,10 @@ namespace ConvenienceStore
             base.OnNavigatedTo(e);
             if (e.Parameter != null)
             {
-                productBinds = (List<ProductBind>)e.Parameter;
-                if (productBinds.Count > 0)
-                {
-                    if (productBinds[0].discount != 0)
-                    {
-                        isDiscounted = true;
-                        discountBtn.IsEnabled = false;
-                    }
-                    for (int i = 0; i < productBinds.Count; i++)
-                    {
-                        products.Add(new Product(productBinds[i].id ,productBinds[i].name, productBinds[i].cost, productBinds[i].count, productBinds[i].weight, productBinds[i].discount));
-                        totalInfo.totalCost += productBinds[i].totalCost;
-                        totalInfo.weight += productBinds[i].weight * productBinds[i].count;
-                    }
-                    resetBindData();
-                }
+                buyHistory = (List<ProductBind>)e.Parameter;
             }
         }
-
-        private async void discountBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.IsEnabled = false;
-
-            var dialog = new AddDiscount { Text = "" };
-            var result = await dialog.ShowAsync();
-            if (result == ContentDialogResult.Primary)
-            {
-                // 멤버십 여부 확인
-
-
-                for (int i = 0; i < products.Count; i++)
-                {
-                    products[i].setTotalCost((int)(products[i].getTotalCost() * DiscountRate));
-                    productBinds[i].totalCost = products[i].getTotalCost();
-
-                    products[i].setDiscount(products[i].getCost() * products[i].getCount() - products[i].getTotalCost());
-                    productBinds[i].discount = products[i].getDiscount();
-                }
-
-                totalInfo.totalCost = (int)(totalInfo.totalCost * DiscountRate);
-
-                resetBindData();
-
-                isDiscounted = true;
-                discountBtn.IsEnabled = false;
-            }
-
-            this.IsEnabled = true;
-        }
-
+        
         private async void payBtn_Click(object sender, RoutedEventArgs e)
         {
             SelectJob.SELECTPAGE = 2;
@@ -103,63 +66,129 @@ namespace ConvenienceStore
             await ApplicationViewSwitcher.SwitchAsync(App.subViewId);
         }
 
-        private void addProductTxtBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        private async void addProductTxtBox_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
-                // 서버한테 정보 받아오기
-                int i;
-                Boolean isExist = false;
-                for (i = 0; i < productBinds.Count; i++)
+                for (int i = 0; i < buyHistory.Count; i++)
                 {
-                    if (productBinds[i].name == addProductTxtBox.Text)
+                    if(buyHistory[i].id == addProductTxtBox.Text)
                     {
-                        isExist = true;
+                        pass = true;
                         break;
                     }
+                    pass = false;
                 }
-
-                double discount = 1.0;
-                if (isDiscounted)
-                    discount = DiscountRate;
-
-                // 같은 이름 상품이 이미 등록됬을 때
-                if (isExist)
+                if(!pass)
                 {
-                    int cost = products[i].getCost();
+                    ContentDialog test = new ContentDialog
+                    {
+                        Title = "구매내역 없음",
+                        Content = "입력한 상품을 구매내역에서 찾을 수 없습니다.",
+                        CloseButtonText = "확인"
+                    };
 
-                    products[i].setCount(products[i].getCount() + 1);
-                    products[i].setTotalCost(products[i].getCount() * (int)(cost * discount));
-                    //products[i].setDiscount(products[i].getCount() * (int)(cost * (1 - discount)));
-                    products[i].setDiscount(products[i].getCost() * products[i].getCount() - products[i].getTotalCost());
-
-                    productBinds[i].count = products[i].getCount();
-                    productBinds[i].totalCost = products[i].getTotalCost();
-                    productBinds[i].discount = products[i].getDiscount();
-
-                    totalInfo.totalCost += (int)(cost * discount);
-                    totalInfo.weight += products[i].getWeight();
+                    await test.ShowAsync();
                 }
-                // 없을 때
                 else
                 {
-                    Product p = new Product("id", addProductTxtBox.Text, 1000, 2, 5.5f);
-                    p.setTotalCost((int)(p.getTotalCost() * discount));
-                    p.setDiscount(p.getCost() * p.getCount() - p.getTotalCost());
+                    // 서버한테 정보 받아오기
+                    string query = "select * from product where productID = '" + addProductTxtBox.Text + "'";
+                    string productInfo = SqlManager.query(query, 7);
+                    if (productInfo.Length > 0)
+                    {
+                        Product product = getProductInfo(productInfo);
+                        int i;
+                        Boolean isExist = false;
+                        for (i = 0; i < productBinds.Count; i++)
+                        {
+                            if (productBinds[i].name == product.getName())
+                            {
+                                isExist = true;
+                                break;
+                            }
+                        }
 
-                    products.Add(p);
-                    productBinds.Add(p.bindData());
+                        double discount = 1.0;
+                        if (isDiscounted)
+                            discount = DiscountRate;
 
-                    totalInfo.totalCost += p.getTotalCost();
-                    totalInfo.weight += p.getCount() * p.getWeight();
+                        // 같은 이름 상품이 이미 등록됬을 때
+                        if (isExist)
+                        {
+                            int cost = products[i].getCost();
+                            // 수량 갯수 파악하기
+                            foreach(ProductBind bind in buyHistory)
+                            {
+                                if(bind.id == products[i].getID())
+                                {
+                                    if(products[i].getCount() * -1 == bind.count)
+                                    {
+                                        ContentDialog test = new ContentDialog
+                                        {
+                                            Title = "수량초과",
+                                            Content = "구매한 상품 이상을 반품할 수 없습니다",
+                                            CloseButtonText = "확인"
+                                        };
+
+                                        await test.ShowAsync();
+                                        return;
+                                    }
+                                }
+                            }
+
+                            products[i].setCount(products[i].getCount() - 1);
+                            products[i].setTotalCost(products[i].getCount() * (int)(cost * discount));
+                            //products[i].setDiscount(products[i].getCount() * (int)(cost * (1 - discount)));
+                            products[i].setDiscount(products[i].getCost() * products[i].getCount() - products[i].getTotalCost());
+
+                            productBinds[i].count--;
+                            productBinds[i].totalCost = products[i].getTotalCost();
+                            productBinds[i].discount = products[i].getDiscount();
+
+                            totalInfo.totalCost -= (int)(cost * discount);
+                            totalInfo.weight += products[i].getWeight();
+                        }
+                        // 없을 때
+                        else
+                        {
+                            product.setTotalCost((int)(product.getTotalCost() * discount));
+                            product.setDiscount(product.getCost() * product.getCount() - product.getTotalCost());
+
+                            products.Add(product);
+                            productBinds.Add(product.bindData());
+
+                            totalInfo.totalCost += product.getTotalCost();
+                            totalInfo.weight += product.getCount() * product.getWeight() * -1;
+                        }
+
+                        resetBindData();
+                    }
+                    else
+                    {
+                        ContentDialog test = new ContentDialog
+                        {
+                            Title = "상품조회 실패",
+                            Content = "입력한 상품을 찾을 수 없습니다.",
+                            CloseButtonText = "확인"
+                        };
+
+                        await test.ShowAsync();
+                    }
                 }
-
-                resetBindData();
-
                 addProductTxtBox.Text = "";
 
 
             }
+        }
+
+        private Product getProductInfo(string info)
+        {
+            char[] parameter = { '\n', '\t' };
+            string[] infos = info.Split(parameter);
+            Product product = new Product(infos[0], infos[5], int.Parse(infos[3]), -1, float.Parse(infos[6]));
+
+            return product;
         }
 
         private void deleteProductBtn_Click(object sender, RoutedEventArgs e)

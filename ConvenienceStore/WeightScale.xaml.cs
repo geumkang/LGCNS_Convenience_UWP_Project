@@ -49,10 +49,12 @@ namespace ConvenienceStore
         void OnCreate(object sender, RoutedEventArgs e)
         {
             totalWeight = 0;
-            foreach(ProductBind product in bind)
+        
+            foreach (ProductBind product in bind)
             { 
                 totalWeight += product.weight * product.count;
             }
+            if (SelectJob.SELECTPAGE == 2) totalWeight *= -1;
         }
 
         public static async void CheckInputWeight()

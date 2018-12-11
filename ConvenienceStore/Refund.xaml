@@ -109,7 +109,7 @@
                 </Grid>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1" Margin="10,10,10,10" Background="White" CornerRadius="10,10,10,10">
-                <TextBox x:Name="addProductTxtBox" VerticalAlignment="Stretch" Margin="10,594,10,10" FontFamily="BM DoHyeon" FontSize="30" KeyDown="addProductTxtBox_KeyDown" HorizontalAlignment="Stretch"/>
+                <TextBox x:Name="addProductTxtBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="10,0,10,10" FontFamily="BM DoHyeon" FontSize="30" KeyDown="addProductTxtBox_KeyDown"/>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0" Margin="10,10,10,10" Background="White" CornerRadius="10,10,10,10">
                 <Grid.RowDefinitions>
@@ -139,7 +139,7 @@
                     <RowDefinition Height="0.5*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <Button x:Name="discountBtn" Content="할인" FontFamily="BM DoHyeon" FontSize="30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,5" Padding="0,7,0,0" Click="discountBtn_Click" Background="#6B6B6B" Foreground="White" IsEnabled="False"></Button>
+                    <Button x:Name="discountBtn" Content="할인" FontFamily="BM DoHyeon" FontSize="30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,20,20,5" Padding="0,7,0,0" Background="#6B6B6B" Foreground="White" IsEnabled="False"></Button>
                 </Grid>
                 <Grid Grid.Row="1">
                     <Button x:Name="payBtn" Content="반품" FontFamily="BM DoHyeon" FontSize="30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,5,20,20" Padding="0,7,0,0" Click="payBtn_Click" Background="#6B6B6B" Foreground="White"></Button>
